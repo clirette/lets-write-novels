@@ -5,5 +5,13 @@
  */
 
 module.exports = {
-  /* Your site config here */
+  plugins: [
+    {
+      resolve: `gatsby-source-contentful`,
+      options: {
+        spaceId: `sqmyzfus4uit`,
+        accessToken: `HZtDL7wD9fJy3o5rkxcAA0L8d-gX3G9yQoYs75pUpYE`,
+      },
+    },
+  ],
 }

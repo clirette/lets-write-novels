@@ -1,3 +1,46 @@
 import React from "react"
+import { Link, graphql } from "gatsby"
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
+import Layout from "../components/Layout"
 
-export default () => <div>Hello world!</div>
+export const query = graphql`
+  {
+    allContentfulBlogPost {
+      edges {
+        node {
+          title
+          slug
+          heroImage {
+            file {
+              url
+            }
+          }
+        }
+      }
+    }
+  }
+`
+
+export default ({ data }) => {
+  return (
+    <Layout>
+      <div>Home page</div>
+      <div>
+        {data.allContentfulBlogPost.edges.map(({ node }, index) => {
+          return (
+            <div key={index}>
+              <Link to={node.slug}>
+                <img
+                  src={node.heroImage.file.url}
+                  alt="Blog Image"
+                  height="250px"
+                />
+                <h1>{node.title}</h1>
+              </Link>
+            </div>
+          )
+        })}
+      </div>
+    </Layout>
+  )
+}
