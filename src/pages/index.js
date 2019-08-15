@@ -1,6 +1,5 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import Layout from "../components/Layout"
 
 export const query = graphql`

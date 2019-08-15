@@ -1,18 +1,51 @@
 import React, { Fragment, useState } from "react"
-import { Link } from "gatsby"
+import { Link, graphql } from "gatsby"
 import Layout from "../components/Layout"
 
-import {
-  allBooks,
-  allMovies,
-  allCharacters,
-  allEvents,
-  allPlaceSpecifiers,
-  allPlaces,
-} from "../utils/writingPromptsData"
+export const query = graphql`
+  query MyQuery {
+    contentfulWritingPrompts(name: { eq: "Writing Prompts" }) {
+      data {
+        data {
+          allBooks
+          allCharacters
+          allEvents
+          allMovies
+          allPlaceSpecifiers
+          allPlaces
+        }
+      }
+    }
+  }
+`
 
-const WritingPrompts = () => {
+const WritingPrompts = ({
+  data: {
+    contentfulWritingPrompts: {
+      data: { data },
+    },
+  },
+}) => {
+  const {
+    allBooks,
+    allCharacters,
+    allEvents,
+    allMovies,
+    allPlaceSpecifiers,
+    allPlaces,
+  } = data
+
   const [prompt, setPrompt] = useState("")
+
+  const generatePrompt = () => {
+    const chooseTemplate = Math.round(Math.random())
+
+    if (chooseTemplate === 0) {
+      displayPrompt(generateXY())
+    } else if (chooseTemplate === 1) {
+      displayPrompt(generateXYZ())
+    }
+  }
 
   const displayPrompt = prompt => setPrompt(prompt)
 
@@ -28,15 +61,6 @@ const WritingPrompts = () => {
     )} ${getRandomSelection(allPlaceSpecifiers)} ${getRandomSelection(
       allPlaces
     )}`
-
-  const generatePrompt = () => {
-    const chooseTemplate = Math.round(Math.random())
-    if (chooseTemplate === 0) {
-      displayPrompt(generateXY())
-    } else if (chooseTemplate === 1) {
-      displayPrompt(generateXYZ())
-    }
-  }
 
   return (
     <Layout>

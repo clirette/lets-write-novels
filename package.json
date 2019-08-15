@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^13.2.0",
-    "gatsby": "^2.13.6",
+    "gatsby": "^2.13.64",
     "gatsby-source-contentful": "^2.1.8",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
