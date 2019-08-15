@@ -50,7 +50,7 @@ const WritingPrompts = ({
   const displayPrompt = prompt => setPrompt(prompt)
 
   const getRandomSelection = array =>
-    array[Math.round(Math.random() * array.length)]
+    array[Math.round(Math.random() * (array.length - 1))]
 
   const generateXY = () =>
     `${getRandomSelection(allBooks)} meets ${getRandomSelection(allMovies)}`
