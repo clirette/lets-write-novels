@@ -133,7 +133,7 @@ const GenerateButton = styled.div`
   clip-path: polygon(0% 0%, 100% 0%, 95% 50%, 100% 100%, 0% 100%, 5% 50%);
   text-align: center;
   cursor: pointer;
-
+  user-select: none;
   @media ${devices.mobileL} {
     width: 90%;
     margin: 0.5rem auto;
