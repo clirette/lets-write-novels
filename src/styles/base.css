@@ -19,3 +19,15 @@ p,
 a {
   font-size: 1.6rem;
 }
+
+@media (min-width: 425px) {
+  html {
+    font-size: 50%;
+  }
+}
+
+@media (min-width: 375px) {
+  html {
+    font-size: 43.5%;
+  }
+}

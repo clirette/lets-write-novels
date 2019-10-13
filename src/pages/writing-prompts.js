@@ -3,6 +3,7 @@ import { Link, graphql } from "gatsby"
 import Layout from "../components/Layout"
 import chalkboard from "../images/chalkboard.jpeg"
 import styled from "styled-components"
+import devices from "../utils/devices"
 
 const generatePrompt = (setPrompt, data) =>
   Math.round(Math.random()) === 0
@@ -60,6 +61,11 @@ const PromptsContainer = styled.div`
   justify-content: space-around;
   color: white;
   text-align: center;
+
+  @media ${devices.mobileL} {
+    padding-top: 5rem;
+    padding-bottom: 10rem;
+  }
 `
 
 const HeadingTitle = styled.h1`
@@ -68,6 +74,10 @@ const HeadingTitle = styled.h1`
   font-style: italic;
   letter-spacing: 0.2rem;
   margin-bottom: 3rem;
+
+  @media ${devices.mobileL} {
+    margin-bottom: 1rem;
+  }
 `
 
 const HeadingSubtitle = styled.h3`
@@ -88,6 +98,7 @@ const QuestionContainer = styled.div`
 const QuestionBlockContainer = styled.div`
   display: flex;
   justify-content: space-around;
+  min-height: 20.5rem;
 `
 
 const Question = styled.span`
@@ -99,11 +110,16 @@ const Question = styled.span`
 
 const QuestionBlock = styled.p`
   color: ${props => props.color};
-  font-size: 3rem;
+  font-size: 5rem;
   font-weight: 700;
   font-family: "Montserrat", sans-serif;
-  width: 30%;
+  width: 33%;
   margin: auto;
+
+  @media ${devices.mobileL} {
+    word-break: break-word;
+    font-size: 2.5rem;
+  }
 `
 
 const GenerateButton = styled.div`
@@ -117,6 +133,11 @@ const GenerateButton = styled.div`
   clip-path: polygon(0% 0%, 100% 0%, 95% 50%, 100% 100%, 0% 100%, 5% 50%);
   text-align: center;
   cursor: pointer;
+
+  @media ${devices.mobileL} {
+    width: 90%;
+    margin: 0.5rem auto;
+  }
 `
 
 const DeskLink = styled(Link)`
