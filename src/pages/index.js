@@ -2,24 +2,6 @@ import React from "react"
 import { Link, graphql } from "gatsby"
 import Layout from "../components/Layout"
 
-export const query = graphql`
-  {
-    allContentfulBlogPost {
-      edges {
-        node {
-          title
-          slug
-          heroImage {
-            file {
-              url
-            }
-          }
-        }
-      }
-    }
-  }
-`
-
 export default ({ data }) => {
   return (
     <Layout>
@@ -43,3 +25,21 @@ export default ({ data }) => {
     </Layout>
   )
 }
+
+export const query = graphql`
+  {
+    allContentfulBlogPost {
+      edges {
+        node {
+          title
+          slug
+          heroImage {
+            file {
+              url
+            }
+          }
+        }
+      }
+    }
+  }
+`
