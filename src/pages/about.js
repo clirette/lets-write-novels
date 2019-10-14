@@ -4,7 +4,7 @@ import deskTop from "../images/desk-top.jpg"
 
 const about = () => {
   return (
-    <Layout overlay={deskTop}>
+    <Layout backgroundImage={deskTop} darkOverlay>
       <div>About</div>
     </Layout>
   )

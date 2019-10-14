@@ -7,25 +7,26 @@ const Background = styled.div`
   height: 100vh;
   width: 100vw;
   background-image: url(${props => props.backgroundImage});
+  background-repeat: no-repeat;
+  background-size: cover;
   position: relative;
-  &:after {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-image: url(${props => props.overlay});
-    z-index: -1;
-    opacity: 0.5;
-  }
 `
 
-const Layout = ({ children, backgroundImage, overlay }) => (
+const Layout = ({
+  children,
+  backgroundImage,
+  overlay,
+  overlayOpacity,
+  darkOverlay,
+}) => (
   <Fragment>
     <Links />
-    <Background backgroundImage={backgroundImage} overlay={overlay}>
+    <Background
+      backgroundImage={backgroundImage}
+      overlay={overlay}
+      overlayOpacity={overlayOpacity}
+      darkOverlay={darkOverlay}
+    >
       {children}
     </Background>
   </Fragment>
