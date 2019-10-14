@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import Layout from "../components/Layout"
+import { graphql } from "gatsby"
 import boards from "../images/boards.jpg"
 import devices from "../utils/devices"
 import styled from "styled-components"
@@ -107,18 +108,18 @@ const deleteLocalStorage = () => window.localStorage.removeItem("friendlyDesk")
 const getInitialDeskContent = () =>
   window.localStorage.getItem("friendlyDesk") || ""
 
-const helpfulHints = [
-  "Taking time to write is the most important thing! You're doing great!",
-  "Even the worst first draft is better than a blank page. Keep going!",
-  '"You miss 100% of the shots you don\'t take" - Wayne Gretzky -- Michael Scott',
-]
-
-const setNextHint = (currentHintIndex, setCurrentHintIndex) =>
-  currentHintIndex !== helpfulHints.length - 1
+const setNextHint = (currentHintIndex, setCurrentHintIndex, helpfulHintsData) =>
+  currentHintIndex !== helpfulHintsData.length - 1
     ? setCurrentHintIndex(currentHintIndex + 1)
     : setCurrentHintIndex(0)
 
-const FriendlyDesk = () => {
+const FriendlyDesk = ({
+  data: {
+    contentfulDeskMotivation: {
+      data: { data: helpfulHintsData },
+    },
+  },
+}) => {
   const [currentHintIndex, setCurrentHintIndex] = useState(0)
   const [deskContent, setDeskContent] = useState(getInitialDeskContent)
   const [modal, setModal] = useState(false)
@@ -126,7 +127,7 @@ const FriendlyDesk = () => {
   const toggle = () => setModal(!modal)
   const toggleClear = () => setClearModal(!clearModal)
   setInterval(
-    () => setNextHint(currentHintIndex, setCurrentHintIndex),
+    () => setNextHint(currentHintIndex, setCurrentHintIndex, helpfulHintsData),
     HINT_TRANSITION_SECONDS * 1000
   )
   return (
@@ -177,7 +178,7 @@ const FriendlyDesk = () => {
           </StyledModalButton>
         </ModalFooter>
       </StyledModal>
-      <HelpfulHint>{helpfulHints[currentHintIndex]}</HelpfulHint>
+      <HelpfulHint>{helpfulHintsData[currentHintIndex]}</HelpfulHint>
       <Wrapper>
         <HeadingTitle>The Friendly Desk</HeadingTitle>
         <TextArea
@@ -196,5 +197,15 @@ const FriendlyDesk = () => {
     </Layout>
   )
 }
+
+export const query = graphql`
+  query DeskQuery {
+    contentfulDeskMotivation {
+      data {
+        data
+      }
+    }
+  }
+`
 
 export default FriendlyDesk

@@ -11,11 +11,7 @@ export default ({ data }) => {
           return (
             <div key={index}>
               <Link to={node.slug}>
-                <img
-                  src={node.heroImage.file.url}
-                  alt="Blog Image"
-                  height="250px"
-                />
+                <img src={node.heroImage.file.url} alt="Blog" height="250px" />
                 <h1>{node.title}</h1>
               </Link>
             </div>
