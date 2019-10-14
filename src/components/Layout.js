@@ -2,6 +2,7 @@ import React, { Fragment } from "react"
 import Links from "./Links"
 import styled from "styled-components"
 import "../styles/base.css"
+import "bootstrap/dist/css/bootstrap.min.css"
 
 const Background = styled.div`
   height: 100vh;

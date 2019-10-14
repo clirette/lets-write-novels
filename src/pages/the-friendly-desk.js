@@ -3,6 +3,7 @@ import Layout from "../components/Layout"
 import boards from "../images/boards.jpg"
 import devices from "../utils/devices"
 import styled from "styled-components"
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap"
 
 const HeadingTitle = styled.h1`
   font-size: 9rem;
@@ -32,6 +33,7 @@ const TextArea = styled.textarea`
   font-family: "Montserrat", sans-serif;
   font-weight: 700;
   overflow-y: scroll;
+  font-size: 2rem;
 `
 
 const SaveButton = styled.button`
@@ -41,6 +43,7 @@ const SaveButton = styled.button`
   padding: 0.5rem 5rem;
   cursor: pointer;
   min-width: 18rem;
+  font-size: 2rem;
 `
 
 const DeleteButton = styled.button`
@@ -50,6 +53,15 @@ const DeleteButton = styled.button`
   padding: 0.5rem 5rem;
   cursor: pointer;
   min-width: 18rem;
+  font-size: 2rem;
+`
+
+const StyledModal = styled(Modal)`
+  font-size: 2rem;
+`
+
+const StyledModalButton = styled(Button)`
+  font-size: 2rem;
 `
 
 const HINT_TRANSITION_SECONDS = 60
@@ -65,7 +77,7 @@ const HelpfulHint = styled.div`
   border-radius: 0.3rem;
   font-size: 2.4rem;
   width: 13%;
-  background-color: rgba(188, 151, 210, 0.7);
+  background-color: rgba(188, 151, 210, 0.8);
   animation: slideInOut ${HINT_TRANSITION_SECONDS}s infinite;
   @keyframes slideInOut {
     0% {
@@ -109,12 +121,62 @@ const setNextHint = (currentHintIndex, setCurrentHintIndex) =>
 const FriendlyDesk = () => {
   const [currentHintIndex, setCurrentHintIndex] = useState(0)
   const [deskContent, setDeskContent] = useState(getInitialDeskContent)
+  const [modal, setModal] = useState(false)
+  const [clearModal, setClearModal] = useState(false)
+  const toggle = () => setModal(!modal)
+  const toggleClear = () => setClearModal(!clearModal)
   setInterval(
     () => setNextHint(currentHintIndex, setCurrentHintIndex),
     HINT_TRANSITION_SECONDS * 1000
   )
   return (
     <Layout backgroundImage={boards} darkOverlay>
+      <StyledModal isOpen={modal} toggle={toggle}>
+        <ModalHeader toggle={toggle} tag="h1">
+          Save your work?
+        </ModalHeader>
+        <ModalBody>
+          Saving your work will overwrite whatever you had saved previously. Are
+          you sure?
+        </ModalBody>
+        <ModalFooter>
+          <StyledModalButton
+            color="primary"
+            onClick={() => {
+              toggle()
+              saveToLocalStorage(deskContent)
+            }}
+          >
+            Yes
+          </StyledModalButton>{" "}
+          <StyledModalButton color="secondary" onClick={toggle}>
+            No
+          </StyledModalButton>
+        </ModalFooter>
+      </StyledModal>
+      <StyledModal isOpen={clearModal} toggle={toggleClear}>
+        <ModalHeader toggle={toggleClear} tag="h1">
+          Clear your work?
+        </ModalHeader>
+        <ModalBody>
+          Clearing your work will discard your current changes. Are you sure?
+        </ModalBody>
+        <ModalFooter>
+          <StyledModalButton
+            color="primary"
+            onClick={() => {
+              toggleClear()
+              setDeskContent("")
+              deleteLocalStorage()
+            }}
+          >
+            Yes
+          </StyledModalButton>{" "}
+          <StyledModalButton color="secondary" onClick={toggleClear}>
+            No
+          </StyledModalButton>
+        </ModalFooter>
+      </StyledModal>
       <HelpfulHint>{helpfulHints[currentHintIndex]}</HelpfulHint>
       <Wrapper>
         <HeadingTitle>The Friendly Desk</HeadingTitle>
@@ -125,15 +187,10 @@ const FriendlyDesk = () => {
           value={deskContent}
         ></TextArea>
       </Wrapper>
-      <SaveButton onClick={() => saveToLocalStorage(deskContent)}>
+      <SaveButton className="btn btn-primary" onClick={toggle}>
         Save
       </SaveButton>
-      <DeleteButton
-        onClick={() => {
-          setDeskContent("")
-          deleteLocalStorage()
-        }}
-      >
+      <DeleteButton className="btn btn-danger" onClick={toggleClear}>
         Clear
       </DeleteButton>
     </Layout>
