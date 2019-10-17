@@ -35,6 +35,10 @@ const TextArea = styled.textarea`
   font-weight: 700;
   overflow-y: scroll;
   font-size: 2rem;
+
+  &::-webkit-scrollbar {
+    width: 0 !important;
+  }
 `
 
 const SaveButton = styled.button`
