@@ -138,6 +138,9 @@ const GenerateButton = styled.div`
     width: 90%;
     margin: 0.5rem auto;
   }
+  @media ${devices.tablet} {
+    width: 60%;
+  }
 `
 
 const DeskLink = styled(Link)`
