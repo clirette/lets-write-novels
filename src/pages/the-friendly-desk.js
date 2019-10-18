@@ -198,12 +198,11 @@ const MobileTextArea = styled.textarea`
 `
 
 const saveToLocalStorage = deskContent =>
-  window.localStorage.setItem("friendlyDesk", deskContent)
+  localStorage.setItem("friendlyDesk", deskContent)
 
-const deleteLocalStorage = () => window.localStorage.removeItem("friendlyDesk")
+const deleteLocalStorage = () => localStorage.removeItem("friendlyDesk")
 
-const getInitialDeskContent = () =>
-  window.localStorage.getItem("friendlyDesk") || ""
+const getInitialDeskContent = () => localStorage.getItem("friendlyDesk") || ""
 
 const setNextHint = (currentHintIndex, setCurrentHintIndex, helpfulHintsData) =>
   currentHintIndex !== helpfulHintsData.length - 1
